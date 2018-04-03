@@ -1,0 +1,57 @@
+import controlP5.*;
+
+ControlP5 cp5;
+
+int linhas, colunas;
+
+
+void circulo(int posicaox, int posicaoy, int raio){ //criando a funcao de criar circulos
+    fill(random(0,150),random(0,150),random(0,150));  
+    ellipse(posicaox, posicaoy, 2 * raio, 2 * raio); //2*raio, na funcao ellipse as ultimas duas variaveis significam altura e largura
+}
+
+
+void bloco(int posicaox, int posicaoy, int tamanho){//criando a funcao de blocos
+  fill(35,35,142);
+  rect(posicaox, posicaoy, tamanho, tamanho);
+  circulo(posicaox + tamanho/2, posicaoy + tamanho/2, tamanho/2); //o centro da elipse é a metade da altura e largura do bloco
+  circulo(posicaox + tamanho/2, posicaoy + tamanho/2, tamanho/int(random(3,5)));
+  circulo(posicaox + tamanho/2, posicaoy + tamanho/2, tamanho/int(random(6,10)));
+}
+
+void setup(){ 
+  size(500,500);
+  
+  //HORIZONTAL
+  cp5 = new ControlP5(this);
+  cp5.addSlider("linhas")
+     .setPosition(0,0)
+     .setSize(100,20)
+     .setRange(1,5)
+     .setValue(1)
+     .setNumberOfTickMarks(5)
+     .setColorTickMark(255)
+     .setColorBackground(1);
+  
+  //VERTICAL
+  cp5 = new ControlP5(this);
+  cp5.addSlider("colunas")
+     .setPosition(10,385)
+     .setSize(20,100)
+     .setValue(1)
+     .setRange(1,5)
+     .setNumberOfTickMarks(5)
+     .setColorTickMark(255)
+     .setColorBackground(1);
+}
+
+
+void draw() {
+  randomSeed(2);
+  background(120);
+  for (int i = 0; i < colunas; i++){ 
+       for (int j = 0 ; j < linhas; j++){
+          bloco(j*100,400-(i*100),100);  
+    }
+  }
+}
